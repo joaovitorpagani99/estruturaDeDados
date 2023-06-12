@@ -4,10 +4,12 @@ import model.Materia;
 
 public class NoMateria {
 
-	 Materia materia;
-	 NoMateria proximo;
-	 NoMateria anterior;
+	private Materia materia;
+	private NoMateria proximo;
+	private NoMateria anterior;
 	
+        
+        
 	public Materia getMateria() {
 		return materia;
 	}

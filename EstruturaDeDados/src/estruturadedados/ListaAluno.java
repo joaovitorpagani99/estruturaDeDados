@@ -3,6 +3,7 @@ package estruturadedados;
 import model.Aluno;
 
 public class ListaAluno {
+
     No inicio;
     No fim;
     int tamanho;

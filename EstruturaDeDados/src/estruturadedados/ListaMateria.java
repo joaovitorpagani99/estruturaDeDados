@@ -3,12 +3,13 @@ package estruturadedados;
 import model.Materia;
 
 public class ListaMateria {
+
     NoMateria inicio;
     NoMateria fim;
-    int tamanho;
+    private int tamanho;
 
     public void inserirInicio(Materia materia) {
-    	NoMateria no = new NoMateria();
+        NoMateria no = new NoMateria();
         no.setMateria(materia);
         no.setAnterior(null);
         no.setProximo(inicio);
@@ -38,7 +39,7 @@ public class ListaMateria {
     }
 
     public void inserirFim(Materia materia) {
-    	NoMateria no = new NoMateria();
+        NoMateria no = new NoMateria();
         no.setMateria(materia);
         no.setProximo(null);
         no.setAnterior(fim);
@@ -73,16 +74,20 @@ public class ListaMateria {
         } else if (indice >= tamanho) {
             inserirFim(materia);
         } else {
-        	NoMateria local = inicio;
+
+            NoMateria local = inicio;
             for (int i = 0; i < indice - 1; i++) {
                 local = local.getProximo();
             }
             NoMateria no = new NoMateria();
+
             no.setMateria(materia);
             no.setAnterior(local);
             no.setProximo(local.getProximo());
+
             local.getProximo().setAnterior(no);
             local.setProximo(no);
+
             tamanho++;
         }
     }
@@ -100,29 +105,70 @@ public class ListaMateria {
         for (int i = 0; i < indice; i++) {
             local = local.getProximo();
         }
-        local.getAnterior().setProximo(local.getProximo());
-        local.getProximo().setAnterior(local.getAnterior());
+        NoMateria anterior = local.getAnterior();
+        NoMateria proximo = local.getProximo();
+
+        anterior.setProximo(proximo);
+        proximo.setAnterior(anterior);
         tamanho--;
         return local.getMateria();
     }
 
-
     public String retorno() {
-    	NoMateria local = inicio;
+        NoMateria local = inicio;
         String str = local.toString();
         while (local != null) {
-            Materia materia = new Materia(); 
-            str = ""+local.getMateria();
+            str = "" + local.getMateria();
             local = local.getProximo();
-            System.out.println(str) ;     
             return str;
         }
         return null;
     }
+    
+    public Materia buscar(Materia materia) {
+            NoMateria atual = inicio;
+            while (atual != null) {
+                if (atual.getMateria() == materia) {
+                    atual.setMateria(materia);
+                    return atual.getMateria();
+                } else {
+                    atual = atual.getProximo();
+                }
+            }
+            return null;
+        }
+
+    public void toSring() {
+        NoMateria local = inicio;
+        String str = local.toString();
+        while (local != null) {
+            str = "" + local.getMateria();
+            local = local.getProximo();
+            System.out.println(str);
+        }
+    }
+    
+    
 
     public int getTamanho() {
         return tamanho;
     }
-    
-   
+
+    public NoMateria getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(NoMateria inicio) {
+        this.inicio = inicio;
+    }
+
+    public NoMateria getFim() {
+        return fim;
+    }
+
+    public void setFim(NoMateria fim) {
+        this.fim = fim;
+    }
+
+
 }

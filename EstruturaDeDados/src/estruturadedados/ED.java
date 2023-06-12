@@ -26,24 +26,13 @@ public class ED {
         lista.inserirInicio(materia2);
         lista.inserirInicio(materia3);
         
-        System.out.println(lista.tamanho);
-      
-        /*for (int i = 0; i < lista.tamanho; i++) {
-           / Materia aux = new Materia();
-            aux = lista.retirarInicio();
-            System.out.println(aux.toString());
-        }*/
-         
-       // System.out.println(lista.retorno());
-       // System.out.println("estruturadedados.ED.main()");
+        System.out.println(lista.buscar(materia2));
+        //System.out.println(lista.getTamanho());
+        //lista.toSring();
+        //lista.retirarMeio(0);
+        //System.out.println("estruturadedados.ED.main()");
         
-       // lista.retirarFim();
-        //System.out.println(lista.retorno());
-       // System.out.println("estruturadedados.ED.main()");
-       // lista.retirarInicio();
-        for (int i = 0; i < lista.tamanho; i++) {
-            lista.retorno();
-        }
+        //lista.toSring();
             
         
         
