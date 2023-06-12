@@ -11,6 +11,7 @@ public class NoMateria {
 	public Materia getMateria() {
 		return materia;
 	}
+
 	public void setMateria(Materia materia) {
 		this.materia = materia;
 	}
@@ -26,5 +27,5 @@ public class NoMateria {
 	public void setAnterior(NoMateria anterior) {
 		this.anterior = anterior;
 	}
-	
+
 }

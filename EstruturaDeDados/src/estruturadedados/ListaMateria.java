@@ -106,14 +106,23 @@ public class ListaMateria {
         return local.getMateria();
     }
 
-    @Override
-    public String toString() {
+
+    public String retorno() {
     	NoMateria local = inicio;
         String str = local.toString();
         while (local != null) {
+            Materia materia = new Materia(); 
             str = ""+local.getMateria();
             local = local.getProximo();
+            System.out.println(str) ;     
+            return str;
         }
-        return str;
+        return null;
     }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+    
+   
 }
