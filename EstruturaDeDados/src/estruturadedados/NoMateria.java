@@ -5,6 +5,7 @@ import model.Materia;
 public class NoMateria {
 
 	private Materia materia;
+        
 	private NoMateria proximo;
 	private NoMateria anterior;
 	

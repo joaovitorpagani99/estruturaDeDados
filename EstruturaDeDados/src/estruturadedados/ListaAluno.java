@@ -4,9 +4,39 @@ import model.Aluno;
 
 public class ListaAluno {
 
-    No inicio;
-    No fim;
-    int tamanho;
+    private No inicio;
+    private No fim;
+    private int tamanho;
+
+    public ListaAluno() {
+        this.inicio = null;
+        this.fim = null;
+        this.tamanho = 0;
+    }
+
+    public No getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(No inicio) {
+        this.inicio = inicio;
+    }
+
+    public No getFim() {
+        return fim;
+    }
+
+    public void setFim(No fim) {
+        this.fim = fim;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
+    }
 
     public void inserirInicio(Aluno aluno) {
         No no = new No();
@@ -109,12 +139,28 @@ public class ListaAluno {
 
     public String retornar() {
         No local = inicio;
-        String str = local.toString();
+        StringBuilder str = new StringBuilder();
         while (local != null) {
-            str = "" + local.getAluno();
+            str.append(local.getAluno()).append(" ");
             local = local.getProximo();
-            return str;
         }
-        return "";
+        return str.toString();
+    }
+
+    public void exibirLista() {
+        No atual = inicio;
+        while (atual != null) {
+            System.out.println(atual.getAluno().toString()+"\n");
+            atual = atual.getProximo();
+        }
+    }
+
+    public void alterar(Aluno aluno) {
+        while (inicio != null) {
+            if (inicio.getAluno().getMatricula().equals(aluno.getMatricula())) {
+                inicio.setAluno(aluno);
+            }
+            inicio.getProximo();
+        }
     }
 }
