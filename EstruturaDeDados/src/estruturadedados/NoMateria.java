@@ -30,4 +30,8 @@ public class NoMateria {
 		this.anterior = anterior;
 	}
 
+    void setMateria(String materia) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }

@@ -22,6 +22,8 @@ public class telaMateria extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
     
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,12 +74,19 @@ public class telaMateria extends javax.swing.JFrame {
                 "Materia"
             }
         ));
+        table.setColumnSelectionAllowed(true);
         table.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(table);
+
+        txtMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMateriaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,7 +128,6 @@ public class telaMateria extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -130,17 +138,21 @@ public class telaMateria extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
+    
     private void btnalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnalterarActionPerformed
         String dado = txtMateria.getText();  
         int posicao = table.getSelectedRow();
         int column = table.getSelectedColumn(); 
-        
+        Materia materia = new Materia();
+        materia.setMateria(dado);
         if (posicao != -1) {
             table.setValueAt(dado, posicao, column);
-            lista.buscar((Materia) table.getValueAt(posicao, column));
-            lista.toSring();
+            lista.alterar(materia);
+            DefaultTableModel val = (DefaultTableModel)table.getModel();
+            val.addRow(new String [] {lista.retorno()});
         }
+        lista.toSring();
     }//GEN-LAST:event_btnalterarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
@@ -151,8 +163,7 @@ public class telaMateria extends javax.swing.JFrame {
         materia.setMateria(dado);
 	lista.inserirInicio(materia);
 	DefaultTableModel val = (DefaultTableModel)table.getModel();
-        
-	
+       
         val.addRow(new String [] {lista.retorno()});
 
     }//GEN-LAST:event_btnInserirActionPerformed
@@ -176,9 +187,13 @@ public class telaMateria extends javax.swing.JFrame {
         String materia =  (String) table.getValueAt(row, column);
         txtMateria.setText(materia);
         }else{
-            txtMateria.setText("");
+           txtMateria.setText("");
         }
     }//GEN-LAST:event_tableMouseClicked
+
+    private void txtMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMateriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMateriaActionPerformed
 
     /**
      * @param args the command line arguments

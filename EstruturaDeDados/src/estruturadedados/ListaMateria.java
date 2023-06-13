@@ -125,15 +125,14 @@ public class ListaMateria {
         return null;
     }
     
-    public Materia buscar(Materia materia) {
+    public Materia alterar(Materia materia) {
             NoMateria atual = inicio;
             while (atual != null) {
                 if (atual.getMateria() == materia) {
                     atual.setMateria(materia);
                     return atual.getMateria();
-                } else {
+                } 
                     atual = atual.getProximo();
-                }
             }
             return null;
         }

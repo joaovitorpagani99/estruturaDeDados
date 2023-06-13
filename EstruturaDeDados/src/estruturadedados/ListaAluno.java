@@ -107,14 +107,14 @@ public class ListaAluno {
         return local.getAluno();
     }
 
-    @Override
-    public String toString() {
-        String str = "( " + tamanho + " )";
+    public String retornar() {
         No local = inicio;
+        String str = local.toString();
         while (local != null) {
-            str += local.getAluno() + " ";
+            str = "" + local.getAluno();
             local = local.getProximo();
+            return str;
         }
-        return str;
+        return "";
     }
 }

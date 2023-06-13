@@ -5,8 +5,8 @@
 package estruturadedados.view;
 
 import estruturadedados.ListaAluno;
-import estruturadedados.ListaMateria;
-import java.awt.HeadlessException;
+import javax.swing.table.DefaultTableModel;
+import model.Aluno;
 
 /**
  *
@@ -14,22 +14,23 @@ import java.awt.HeadlessException;
  */
 public class telaAluno extends javax.swing.JFrame {
 
-    ListaAluno aluno;
-    telaMateria materia;
-    
-    /**
-     * Creates new form telaAluno
-     */
-    
-    
-    
-    public telaAluno() throws HeadlessException {
+    ListaAluno lista = new ListaAluno();
+
+    private telaAluno() {
         initComponents();
     }
-
-    public telaAluno(telaMateria materia) {
-        this.materia = materia;
+    
+    public void carregarTabela(){
+        DefaultTableModel dados = (DefaultTableModel)table.getModel();
+        dados.setNumRows(0);
+        for(Aluno aluno : lista.retornar()) {
+           dados.addRow(new String [] {lista.retornar()});
+        }
+        
     }
+    
+    
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,14 +47,17 @@ public class telaAluno extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtIdade = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        cbMateria = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        txtNota = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         btnInserir.setText("Inserir");
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
@@ -66,16 +70,16 @@ public class telaAluno extends javax.swing.JFrame {
 
         jLabel1.setText("Idade  do Aluno :");
 
-        jLabel3.setText("Materia:");
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        cbMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbMateria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMateriaActionPerformed(evt);
+            },
+            new String [] {
+                "Nome", "Idade"
             }
-        });
-
-        jLabel4.setText("Nota:");
+        ));
+        jScrollPane1.setViewportView(table);
+        table.getAccessibleContext().setAccessibleName("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,21 +88,20 @@ public class telaAluno extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
-                    .addComponent(jLabel4))
-                .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNota)
-                    .addComponent(txtNomeAluno, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbMateria, javax.swing.GroupLayout.Alignment.LEADING, 0, 106, Short.MAX_VALUE))
-                .addGap(118, 118, 118))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(btnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(59, 59, 59)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNomeAluno, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                            .addComponent(txtIdade, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(118, 118, 118))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,34 +114,33 @@ public class telaAluno extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(cbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel4))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnInserir))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(48, 48, 48)
-                .addComponent(btnInserir)
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGap(46, 46, 46)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMateriaActionPerformed
-
-        cbMateria.addItem(materia.lista.retorno());
-        materia.lista.toSring();
-    }//GEN-LAST:event_cbMateriaActionPerformed
-
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        materia.lista.toSring();
+        Aluno aluno = new Aluno();
+	
+        String nome = txtNomeAluno.getText().trim();
+	int idade = Integer.parseInt(txtIdade.getText());
+        aluno.setNome(nome);
+        aluno.setIdade(idade);
+	lista.inserirInicio(aluno);
+        carregarTabela();
     }//GEN-LAST:event_btnInserirActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -177,14 +179,12 @@ public class telaAluno extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnInserir;
-    private javax.swing.JComboBox<String> cbMateria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable table;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNomeAluno;
-    private javax.swing.JTextField txtNota;
     // End of variables declaration//GEN-END:variables
 }

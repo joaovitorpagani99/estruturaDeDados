@@ -26,7 +26,11 @@ public class ED {
         lista.inserirInicio(materia2);
         lista.inserirInicio(materia3);
         
-        System.out.println(lista.buscar(materia2));
+        lista.toSring();
+        
+        materia2.setMateria("tes");
+        System.out.println(lista.alterar(materia2));
+        lista.toSring();
         //System.out.println(lista.getTamanho());
         //lista.toSring();
         //lista.retirarMeio(0);
