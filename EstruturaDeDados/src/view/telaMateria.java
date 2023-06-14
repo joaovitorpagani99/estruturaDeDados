@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package estruturadedados.view;
+package view;
 
 import estruturadedados.ListaAluno;
 import estruturadedados.ListaMateria;
@@ -22,17 +22,17 @@ public class telaMateria extends javax.swing.JFrame {
     ListaMateria lista = new ListaMateria();
     ListaAluno listaAluno = new ListaAluno();
     DefaultTableModel tab;
-         
+
     public telaMateria() {
     }
-    
+
     public telaMateria(telaAluno aluno) {
         initComponents();
         this.setLocationRelativeTo(null);
         listaAluno = aluno.getLista();
-        this.tab= (DefaultTableModel) table.getModel();
+        this.tab = (DefaultTableModel) table.getModel();
     }
-    
+
     public void carregarTabela() {
         NoMateria atual = lista.getInicio();
         while (atual != null) {
@@ -41,14 +41,12 @@ public class telaMateria extends javax.swing.JFrame {
                 materia.getMateria(),
                 materia.getAluno().getNome(),
                 materia.getNota()
-                
+
             });
             atual = atual.getProximo();
         }
     }
 
-
-   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -203,26 +201,39 @@ public class telaMateria extends javax.swing.JFrame {
 
 
     private void btnalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnalterarActionPerformed
+        Materia materia = new Materia();
+      
+        String nomeMateria = table.getValueAt(table.getSelectedRow(), 0).toString();
+        String nomeAluno = table.getValueAt(table.getSelectedRow(), 1).toString();
+        String nota = table.getValueAt(table.getSelectedRow(), 2).toString();
+       
         
+        materia.setMateria(nomeMateria);
+        materia.setNota(nota);
+       
+        lista.buscar(materia).setNota(txtNota.getText());
+        lista.buscar(materia).setMateria(txtMateria.getText());
+        
+        carregarTabela();
     }//GEN-LAST:event_btnalterarActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         Materia materia = new Materia();
-        
+
         String dado = txtMateria.getText().trim();
         String nota = txtNota.getText().trim();
-        
+
         materia.setMateria(dado);
         materia.setNota(nota);
-        
+
         int index = cb.getSelectedIndex();
         String aluno = cb.getSelectedItem().toString();
-        
+
         Aluno al = listaAluno.buscar(aluno);
         materia.setAluno(al);
-        
+
         lista.inserirInicio(materia);
-        
+
         tab.setRowCount(0);
         carregarTabela();
 
@@ -243,10 +254,13 @@ public class telaMateria extends javax.swing.JFrame {
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int row = table.getSelectedRow();
         Materia materia = new Materia();
-        if (row != -1){
-            String objeto = (String) table.getValueAt(row, 1);
+
+        String aluno = (String) table.getValueAt(row, 1);
+        Aluno al = listaAluno.buscarNome(aluno);
+
+        if (row != -1) {
             txtMateria.setText(table.getValueAt(table.getSelectedRow(), 0).toString());
-            cb.addItem();
+            cb.setSelectedItem(al.getMatricula());
             txtNota.setText(table.getValueAt(table.getSelectedRow(), 2).toString());
         } else {
             txtMateria.setText("");
@@ -260,10 +274,10 @@ public class telaMateria extends javax.swing.JFrame {
     private void cbAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbAncestorAdded
         cb.removeAllItems();
         No la = listaAluno.getInicio();
-        while (la != null) {            
+        while (la != null) {
             cb.addItem(la.getAluno().getMatricula());
             la = la.getProximo();
-        }   
+        }
     }//GEN-LAST:event_cbAncestorAdded
 
     private void cbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbActionPerformed
@@ -271,9 +285,18 @@ public class telaMateria extends javax.swing.JFrame {
     }//GEN-LAST:event_cbActionPerformed
 
     private void tableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseReleased
-        if (table.getSelectedRow() != -1) {
+        int row = table.getSelectedRow();
+        Materia materia = new Materia();
+
+        String aluno = (String) table.getValueAt(row, 1);
+        Aluno al = listaAluno.buscarNome(aluno);
+
+        if (row != -1) {
             txtMateria.setText(table.getValueAt(table.getSelectedRow(), 0).toString());
+            cb.setSelectedItem(al.getMatricula());
             txtNota.setText(table.getValueAt(table.getSelectedRow(), 2).toString());
+        } else {
+            txtMateria.setText("");
         }
     }//GEN-LAST:event_tableMouseReleased
 

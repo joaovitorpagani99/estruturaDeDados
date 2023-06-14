@@ -124,18 +124,18 @@ public class ListaMateria {
         }
         return null;
     }
-    
+
     public Materia alterar(Materia materia) {
-            NoMateria atual = inicio;
-            while (atual != null) {
-                if (atual.getMateria() == materia) {
-                    atual.setMateria(materia);
-                    return atual.getMateria();
-                } 
-                    atual = atual.getProximo();
+        NoMateria atual = inicio;
+        while (atual != null) {
+            if (atual.getMateria() == materia) {
+                atual.setMateria(materia);
+                return atual.getMateria();
             }
-            return null;
+            atual = atual.getProximo();
         }
+        return null;
+    }
 
     public void toSring() {
         NoMateria local = inicio;
@@ -146,8 +146,18 @@ public class ListaMateria {
             System.out.println(str);
         }
     }
-    
-    
+
+    public Materia buscar(Materia materia) {
+        NoMateria atual = inicio;
+        while (atual != null) {
+            if (atual.getMateria().equals(materia)) {
+               return atual.getMateria();
+            } else {
+                atual.getProximo();
+            }
+        }
+        return null;
+    }
 
     public int getTamanho() {
         return tamanho;
@@ -168,6 +178,5 @@ public class ListaMateria {
     public void setFim(NoMateria fim) {
         this.fim = fim;
     }
-
 
 }

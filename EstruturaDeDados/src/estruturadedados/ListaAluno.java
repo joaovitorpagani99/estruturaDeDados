@@ -175,4 +175,16 @@ public class ListaAluno {
         }
         return null;
     }
+    
+     public Aluno buscarNome(String nome) {
+        No atual = inicio;
+        while (atual != null) {
+            if (atual.aluno.getNome().equals(nome)) {
+                return atual.aluno;
+            } else {
+                atual = atual.proximo;
+            }
+        }
+        return null;
+    }
 }
