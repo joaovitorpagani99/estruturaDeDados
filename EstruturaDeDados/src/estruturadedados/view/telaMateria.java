@@ -131,10 +131,10 @@ public class telaMateria extends javax.swing.JFrame {
         jLabel2.setText("Aluno");
 
         cb.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 cbAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -193,8 +193,8 @@ public class telaMateria extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnalterar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
 
@@ -242,10 +242,12 @@ public class telaMateria extends javax.swing.JFrame {
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int row = table.getSelectedRow();
-        int column = table.getSelectedColumn();
-        if (row != -1) {
-            String materia = (String) table.getValueAt(row, column);
-            txtMateria.setText(materia);
+        Materia materia = new Materia();
+        if (row != -1){
+            String objeto = (String) table.getValueAt(row, 1);
+            txtMateria.setText(table.getValueAt(table.getSelectedRow(), 0).toString());
+            cb.addItem();
+            txtNota.setText(table.getValueAt(table.getSelectedRow(), 2).toString());
         } else {
             txtMateria.setText("");
         }
