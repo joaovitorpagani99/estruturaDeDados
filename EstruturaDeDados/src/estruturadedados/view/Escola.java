@@ -17,6 +17,7 @@ public class Escola extends javax.swing.JFrame {
      */
     public Escola() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
