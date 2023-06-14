@@ -36,11 +36,8 @@ public class telaAluno extends javax.swing.JFrame {
     }
 
     public void carregarTabela() {
-
         dado.setNumRows(0);
-
         No atual = lista.getInicio();
-
         while (atual != null) {
             Aluno aluno = atual.getAluno();
             dado.addRow(new Object[]{
@@ -50,8 +47,9 @@ public class telaAluno extends javax.swing.JFrame {
             });
             atual = atual.getProximo();
         }
-
     }
+
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,7 +75,7 @@ public class telaAluno extends javax.swing.JFrame {
 
         jTextField1.setText("jTextField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -104,7 +102,7 @@ public class telaAluno extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -227,7 +225,7 @@ public class telaAluno extends javax.swing.JFrame {
             });
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "idade invalida");
-        }
+        } 
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -255,16 +253,20 @@ public class telaAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_tableKeyReleased
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        int linha = table.getSelectedRow();
-        int coluna = table.getSelectedColumn();
-        if (table.getSelectedRow() != -1) {
-            Aluno aluno = new Aluno();
-            aluno.setNome(txtNomeAluno.getText());
-            aluno.setIdade(Integer.parseInt(txtIdade.getText()));
-            table.setValueAt(aluno, linha, coluna);
-            lista.alterar(aluno);
-        }
+//        int linha = table.getSelectedRow();
+//        int coluna = table.getSelectedColumn();
+//        if (table.getSelectedRow() != -1) {
+//            Aluno aluno = new Aluno();
+//            aluno.setNome(txtNomeAluno.getText());
+//            aluno.setIdade(Integer.parseInt(txtIdade.getText()));
+//            table.setValueAt(aluno, linha, coluna);
+//            lista.alterar(aluno);
+//        }
+        lista.buscar(txtMAtricula.getText()).setIdade(Integer.parseInt(txtIdade.getText()));
+        lista.buscar(txtMAtricula.getText()).setNome(txtNomeAluno.getText());
         lista.exibirLista();
+        txtMAtricula.setEditable(true);
+        carregarTabela();
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed

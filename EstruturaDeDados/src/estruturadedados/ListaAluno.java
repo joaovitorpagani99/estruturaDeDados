@@ -150,7 +150,7 @@ public class ListaAluno {
     public void exibirLista() {
         No atual = inicio;
         while (atual != null) {
-            System.out.println(atual.getAluno().toString()+"\n");
+            System.out.println(atual.getAluno().toString() + "\n");
             atual = atual.getProximo();
         }
     }
@@ -162,5 +162,17 @@ public class ListaAluno {
             }
             inicio.getProximo();
         }
+    }
+
+    public Aluno buscar(String mat) {
+        No atual = inicio;
+        while (atual != null) {
+            if (atual.aluno.getMatricula().equals(mat)) {
+                return atual.aluno;
+            } else {
+                atual = atual.proximo;
+            }
+        }
+        return null;
     }
 }

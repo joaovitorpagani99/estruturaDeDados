@@ -4,10 +4,12 @@
  */
 package estruturadedados.view;
 
+import estruturadedados.ListaAluno;
 import estruturadedados.ListaMateria;
 import estruturadedados.No;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Aluno;
 import model.Materia;
 
 /**
@@ -17,18 +19,21 @@ import model.Materia;
 public class telaMateria extends javax.swing.JFrame {
 
     ListaMateria lista = new ListaMateria();
-    telaAluno aluno;
-    
-    
+    ListaAluno listaAluno = new ListaAluno();
+    DefaultTableModel tab;
+         
     public telaMateria() {
-        initComponents();
-        this.setLocationRelativeTo(null);
     }
     
     public telaMateria(telaAluno aluno) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.aluno = aluno;
+        listaAluno = aluno.getLista();
+        this.tab= (DefaultTableModel) table.getModel();
+    }
+    
+    public void carregarTabela(){
+        
     }
 
 
@@ -54,7 +59,7 @@ public class telaMateria extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNota = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Materia :");
 
@@ -103,14 +108,18 @@ public class telaMateria extends javax.swing.JFrame {
 
         jLabel2.setText("Aluno");
 
-        cb.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cb.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 cbAncestorAdded(evt);
             }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+        });
+        cb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbActionPerformed(evt);
             }
         });
 
@@ -187,14 +196,23 @@ public class telaMateria extends javax.swing.JFrame {
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         Materia materia = new Materia();
-
+        
         String dado = txtMateria.getText().trim();
-
+        String nota = txtNota.getText().trim();
+        
         materia.setMateria(dado);
+        materia.setNota(nota);
+        
+        int index = cb.getSelectedIndex();
+        String aluno = cb.getSelectedItem().toString();
+        
+        Aluno al = listaAluno.buscar(aluno);
+        materia.setAluno(al);
+        
         lista.inserirInicio(materia);
-        DefaultTableModel val = (DefaultTableModel) table.getModel();
-
-        val.addRow(new String[]{lista.retorno()});
+        
+        
+        tab.addRow(new String[]{lista.retorno()});
 
     }//GEN-LAST:event_btnInserirActionPerformed
 
@@ -226,11 +244,17 @@ public class telaMateria extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMateriaActionPerformed
 
     private void cbAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbAncestorAdded
-        cb.removeAll();
-        No no = aluno.getLista().getInicio();
-        
-        no
+        cb.removeAllItems();
+        No la = listaAluno.getInicio();
+        while (la != null) {            
+            cb.addItem(la.getAluno().getMatricula());
+            la = la.getProximo();
+        }   
     }//GEN-LAST:event_cbAncestorAdded
+
+    private void cbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbActionPerformed
 
     /**
      * @param args the command line arguments
