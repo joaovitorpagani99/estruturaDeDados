@@ -1,7 +1,8 @@
 package model;
 
 public class Materia {
-
+    
+    private int id;
     private String materia;
     private String nota;
     private Aluno aluno;
@@ -9,14 +10,25 @@ public class Materia {
     public Materia() {
     }
 
-    public Materia(String materia, String nota, Aluno aluno) {
+    public Materia(int id, String materia, String nota, Aluno aluno) {
+        this.id = id;
         this.materia = materia;
         this.nota = nota;
         this.aluno = aluno;
     }
 
+    
+
     public String getMateria() {
         return materia;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setMateria(String materia) {
@@ -41,7 +53,9 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia{" + "materia=" + materia + ", nota=" + nota + ", aluno=" + aluno + '}';
+        return "Materia{" + "id=" + id + ", materia=" + materia + ", nota=" + nota + ", aluno=" + aluno + '}';
     }
+
+    
 
 }

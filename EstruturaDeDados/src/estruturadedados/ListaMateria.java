@@ -1,5 +1,6 @@
 package estruturadedados;
 
+import model.Aluno;
 import model.Materia;
 
 public class ListaMateria {
@@ -147,10 +148,10 @@ public class ListaMateria {
         }
     }
 
-    public Materia buscar(Materia materia) {
+    public Materia buscar(Aluno aluno) {
         NoMateria atual = inicio;
         while (atual != null) {
-            if (atual.getMateria().equals(materia)) {
+            if (atual.getMateria().equals(aluno)) {
                return atual.getMateria();
             } else {
                 atual.getProximo();
@@ -158,6 +159,16 @@ public class ListaMateria {
         }
         return null;
     }
+    
+     public void exibirLista() {
+        NoMateria atual = inicio;
+        while (atual != null) {
+                System.out.println(atual.getMateria());
+                atual = atual.getProximo();
+        }
+    }
+    
+    
 
     public int getTamanho() {
         return tamanho;

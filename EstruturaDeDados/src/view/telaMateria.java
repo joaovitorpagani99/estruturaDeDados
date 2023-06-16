@@ -8,6 +8,7 @@ import estruturadedados.ListaAluno;
 import estruturadedados.ListaMateria;
 import estruturadedados.No;
 import estruturadedados.NoMateria;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Aluno;
@@ -22,6 +23,7 @@ public class telaMateria extends javax.swing.JFrame {
     ListaMateria lista = new ListaMateria();
     ListaAluno listaAluno = new ListaAluno();
     DefaultTableModel tab;
+    private static int counter = 0;
 
     public telaMateria() {
     }
@@ -202,40 +204,63 @@ public class telaMateria extends javax.swing.JFrame {
 
     private void btnalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnalterarActionPerformed
         Materia materia = new Materia();
-      
-        String nomeMateria = table.getValueAt(table.getSelectedRow(), 0).toString();
-        String nomeAluno = table.getValueAt(table.getSelectedRow(), 1).toString();
-        String nota = table.getValueAt(table.getSelectedRow(), 2).toString();
-       
-        
-        materia.setMateria(nomeMateria);
-        materia.setNota(nota);
-       
-        lista.buscar(materia).setNota(txtNota.getText());
-        lista.buscar(materia).setMateria(txtMateria.getText());
-        
-        carregarTabela();
+
+        int row = table.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Selecione uma matéria para alterar");
+            return;
+        }
+
+        String nomeMateria = table.getValueAt(row, 0).toString();
+        String nomeAluno = table.getValueAt(row, 1).toString();
+        String nota = table.getValueAt(row, 2).toString();
+
+        Aluno aluno = listaAluno.buscarNome(nomeAluno);
+        if (aluno == null) {
+            JOptionPane.showMessageDialog(null, "Aluno não encontrado");
+            return;
+        }
+
+        /*materia.setMateria(nomeMateria);
+        materia.setAluno(aluno);
+        materia.setNota(nota);*/
+
+        String novaMateria = txtMateria.getText().trim();
+        String novoNota = txtNota.getText().trim();
+
+        lista.buscar(aluno).setMateria(novaMateria);
+        lista.buscar(aluno).setNota(novoNota);
+
     }//GEN-LAST:event_btnalterarActionPerformed
 
+    public static int generateID() {
+        counter++;
+        return counter;
+    }
+    
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
         Materia materia = new Materia();
 
         String dado = txtMateria.getText().trim();
         String nota = txtNota.getText().trim();
-
+        
         materia.setMateria(dado);
         materia.setNota(nota);
-
+        materia.setId(generateID());
+        
         int index = cb.getSelectedIndex();
         String aluno = cb.getSelectedItem().toString();
-
+        
         Aluno al = listaAluno.buscar(aluno);
         materia.setAluno(al);
-
+        
         lista.inserirInicio(materia);
-
+        
         tab.setRowCount(0);
+        lista.exibirLista();
         carregarTabela();
+        
+        
 
     }//GEN-LAST:event_btnInserirActionPerformed
 
